@@ -1,0 +1,48 @@
+.card {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.description {
+  color: var(--color-content-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.widgetList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.widgetItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  cursor: move;
+  transition: background-color var(--transition-default);
+}
+
+.widgetItem:hover {
+  background-color: var(--color-bg-hovered);
+}
+
+.widgetInfo {
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+}
