@@ -3,4 +3,7 @@
   max-width: var(--dimension-container-max-width);
   margin: 0 auto;
   padding: var(--spacing-lg);
+  box-sizing: border-box;
+  min-height: 100vh;
+  overflow-y: auto;
 }
