@@ -31,7 +31,7 @@ function IncomeOutcomeWidget({ data, loading = false }: IncomeOutcomeWidgetProps
         <Card.Section className={styles.chartSection}>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-gray200)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
               <XAxis
                 dataKey="month"
                 stroke="var(--color-content-secondary)"

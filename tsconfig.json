@@ -1,6 +1,11 @@
 {
   "extends": "ts-config-single-spa",
   "compilerOptions": {
+    "lib": [
+      "es2015",
+      "dom",
+      "dom.iterable"
+    ],
     "jsx": "react-jsx",
     "declarationDir": "dist",
     "moduleResolution": "node",

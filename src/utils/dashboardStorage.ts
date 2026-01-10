@@ -10,6 +10,10 @@ const DEFAULT_WIDGETS: DashboardConfig = {
   ],
 };
 
+const cloneConfig = (config: DashboardConfig): DashboardConfig => ({
+  widgets: config.widgets.map((widget) => ({ ...widget })),
+});
+
 export function getDashboardConfig(): DashboardConfig {
   if (typeof window === "undefined" || !window.localStorage) {
     return DEFAULT_WIDGETS;
@@ -19,7 +23,6 @@ export function getDashboardConfig(): DashboardConfig {
     const stored = localStorage.getItem(DASHBOARD_CONFIG_KEY);
     if (stored) {
       const config = JSON.parse(stored) as DashboardConfig;
-      // Ensure all widgets are present
       const widgetIds = new Set(config.widgets.map((w) => w.id));
       DEFAULT_WIDGETS.widgets.forEach((defaultWidget) => {
         if (!widgetIds.has(defaultWidget.id)) {
@@ -31,13 +34,13 @@ export function getDashboardConfig(): DashboardConfig {
       });
       // Sort by order
       config.widgets.sort((a, b) => a.order - b.order);
-      return config;
+      return cloneConfig(config);
     }
   } catch (error) {
     console.error("Erro ao ler configuração do dashboard:", error);
   }
 
-  return DEFAULT_WIDGETS;
+  return cloneConfig(DEFAULT_WIDGETS);
 }
 
 export function saveDashboardConfig(config: DashboardConfig): void {
@@ -53,7 +56,7 @@ export function saveDashboardConfig(config: DashboardConfig): void {
 }
 
 export function toggleWidgetVisibility(widgetId: WidgetType): DashboardConfig {
-  const config = getDashboardConfig();
+  const config = cloneConfig(getDashboardConfig());
   const widget = config.widgets.find((w) => w.id === widgetId);
   if (widget) {
     widget.visible = !widget.visible;
@@ -62,8 +65,10 @@ export function toggleWidgetVisibility(widgetId: WidgetType): DashboardConfig {
   return config;
 }
 
-export function updateWidgetOrder(widgets: Array<{ id: WidgetType; order: number }>): DashboardConfig {
-  const config = getDashboardConfig();
+export function updateWidgetOrder(
+  widgets: Array<{ id: WidgetType; order: number }>
+): DashboardConfig {
+  const config = cloneConfig(getDashboardConfig());
   widgets.forEach(({ id, order }) => {
     const widget = config.widgets.find((w) => w.id === id);
     if (widget) {

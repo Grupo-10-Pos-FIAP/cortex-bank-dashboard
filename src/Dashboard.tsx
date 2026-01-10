@@ -1,6 +1,16 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { Card, IconButton, Loading, Text } from "@grupo10-pos-fiap/design-system";
+import React, { useCallback, useMemo } from "react";
+import {
+  Card,
+  IconButton,
+  Loading,
+  Text,
+} from "@grupo10-pos-fiap/design-system";
 import { useDashboard } from "@/hooks/useDashboard";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  toggleShowSettings,
+  setDashboardConfig,
+} from "@/store/slices/dashboardSlice";
 import { getDashboardConfig } from "@/utils/dashboardStorage";
 import BalanceWidget from "@/components/BalanceWidget";
 import EvolutionWidget from "@/components/EvolutionWidget";
@@ -14,18 +24,21 @@ interface DashboardProps {
 }
 
 function Dashboard({ accountId }: DashboardProps) {
-  const [showSettings, setShowSettings] = useState(false);
-  const [configVersion, setConfigVersion] = useState(0);
+  const dispatch = useAppDispatch();
+  const showSettings = useAppSelector((state) => state.dashboard.showSettings);
+  const config = useAppSelector((state) => state.dashboard.config);
 
   const dashboard = useDashboard(accountId);
-  const config = useMemo(() => getDashboardConfig(), [configVersion]);
 
   const handleConfigChange = useCallback(() => {
-    setConfigVersion((prev) => prev + 1);
-  }, []);
+    const newConfig = getDashboardConfig();
+    dispatch(setDashboardConfig(newConfig));
+  }, [dispatch]);
 
   const visibleWidgets = useMemo(() => {
-    return config.widgets.filter((w) => w.visible).sort((a, b) => a.order - b.order);
+    return config.widgets
+      .filter((w) => w.visible)
+      .sort((a, b) => a.order - b.order);
   }, [config]);
 
   const renderWidget = (widgetId: WidgetType) => {
@@ -90,14 +103,14 @@ function Dashboard({ accountId }: DashboardProps) {
           icon="Settings"
           variant="transparent"
           size="medium"
-          onClick={() => setShowSettings(!showSettings)}
+          onClick={() => dispatch(toggleShowSettings())}
           aria-label="Configurações do dashboard"
         />
       </div>
 
       {showSettings && (
         <WidgetSettings
-          onClose={() => setShowSettings(false)}
+          onClose={() => dispatch(toggleShowSettings())}
           onConfigChange={handleConfigChange}
         />
       )}
@@ -105,7 +118,7 @@ function Dashboard({ accountId }: DashboardProps) {
       {dashboard.loading && visibleWidgets.length === 0 ? (
         <Card variant="elevated" color="base">
           <Card.Section>
-            <Loading text="Carregando dashboard..." size="medium" />
+            <Loading text="Carregando dashboard..." />
           </Card.Section>
         </Card>
       ) : (
@@ -114,7 +127,8 @@ function Dashboard({ accountId }: DashboardProps) {
             <Card variant="elevated" color="base">
               <Card.Section>
                 <Text variant="body" color="content-secondary">
-                  Nenhum widget visível. Configure os widgets para exibir informações.
+                  Nenhum widget visível. Configure os widgets para exibir
+                  informações.
                 </Text>
               </Card.Section>
             </Card>

@@ -46,16 +46,18 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@grupo10-pos-fiap/design-system": "^1.0.7",
+    "@grupo10-pos-fiap/design-system": "^1.0.9",
+    "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-query": "^5.90.16",
     "@types/jest": "^27.0.1",
     "@types/react": "^19.2.4",
     "@types/react-dom": "^19.2.3",
     "@types/systemjs": "^6.1.1",
     "@types/webpack-env": "^1.16.2",
-    "recharts": "^2.10.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0",
+    "recharts": "^2.10.3",
     "single-spa": "^5.9.3",
     "single-spa-react": "^6.0.2"
   },
