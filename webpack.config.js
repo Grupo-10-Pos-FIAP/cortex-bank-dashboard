@@ -18,6 +18,8 @@ module.exports = (webpackConfigEnv, argv) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
+        // Force webpack to use CJS version of Redux 5.x
+        "redux": path.resolve(__dirname, "node_modules/redux/dist/cjs/redux.cjs"),
       },
     },
     devServer: {

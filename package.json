@@ -58,6 +58,7 @@
     "react-dom": "^19.2.0",
     "react-redux": "^9.2.0",
     "recharts": "^2.10.3",
+    "redux": "^5.0.1",
     "single-spa": "^5.9.3",
     "single-spa-react": "^6.0.2"
   },
