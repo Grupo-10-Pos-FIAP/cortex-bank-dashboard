@@ -50,7 +50,7 @@ export default function Root(_props: RootProps) {
       <Provider store={store}>
         <QueryProvider>
           <div className={styles.container}>
-            <Card variant="elevated" color="base">
+            <Card variant="elevated" color="white">
               <Card.Section>
                 <div
                   style={{ textAlign: "center", padding: "var(--spacing-xl)" }}
@@ -74,7 +74,7 @@ export default function Root(_props: RootProps) {
                   <Button
                     variant="primary"
                     onClick={handleRefresh}
-                    width="auto"
+                    width="90px"
                   >
                     Atualizar Tela
                   </Button>

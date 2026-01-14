@@ -74,7 +74,7 @@ function Dashboard({ accountId }: DashboardProps) {
 
   if (!accountId) {
     return (
-      <Card variant="elevated" color="base">
+      <Card variant="elevated" color="white">
         <Card.Section>
           <Text variant="body" color="error">
             Conta não encontrada
@@ -86,7 +86,7 @@ function Dashboard({ accountId }: DashboardProps) {
 
   if (dashboard.error) {
     return (
-      <Card variant="elevated" color="base">
+      <Card variant="elevated" color="white">
         <Card.Section>
           <Text variant="body" color="error">
             Erro ao carregar dados: {dashboard.error.message}
@@ -116,7 +116,7 @@ function Dashboard({ accountId }: DashboardProps) {
       )}
 
       {dashboard.loading && visibleWidgets.length === 0 ? (
-        <Card variant="elevated" color="base">
+        <Card variant="elevated" color="white">
           <Card.Section>
             <Loading text="Carregando dashboard..." />
           </Card.Section>
@@ -124,7 +124,7 @@ function Dashboard({ accountId }: DashboardProps) {
       ) : (
         <div className={styles.widgetsContainer}>
           {visibleWidgets.length === 0 ? (
-            <Card variant="elevated" color="base">
+            <Card variant="elevated" color="white">
               <Card.Section>
                 <Text variant="body" color="content-secondary">
                   Nenhum widget visível. Configure os widgets para exibir

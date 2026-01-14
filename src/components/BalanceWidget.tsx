@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Card, Text, IconButton, Loading } from "@grupo10-pos-fiap/design-system";
+import {
+  Card,
+  Text,
+  IconButton,
+  Loading,
+} from "@grupo10-pos-fiap/design-system";
 import { Balance } from "@/types/dashboard";
 import { formatCurrency } from "@/utils/formatters";
 import styles from "./BalanceWidget.module.css";
@@ -12,13 +17,18 @@ interface BalanceWidgetProps {
 function BalanceWidget({ balance, loading = false }: BalanceWidgetProps) {
   const [isVisible, setIsVisible] = useState<boolean>(true);
 
-  const displayValue = isVisible && balance ? formatCurrency(balance.value) : "••••••";
+  const displayValue =
+    isVisible && balance ? formatCurrency(balance.value) : "••••••";
   const yieldPercentage = balance?.yieldPercentage;
 
   return (
-    <Card variant="elevated" color="base" className={styles.card}>
+    <Card variant="elevated" color="white" className={styles.card}>
       <div className={styles.header}>
-        <Text variant="subtitle" weight="semibold" className={styles.headerTitle}>
+        <Text
+          variant="subtitle"
+          weight="semibold"
+          className={styles.headerTitle}
+        >
           Saldo
         </Text>
         <IconButton

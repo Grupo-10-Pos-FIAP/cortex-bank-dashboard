@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { Card, Text, Button, IconButton } from "@grupo10-pos-fiap/design-system";
+import {
+  Card,
+  Text,
+  Button,
+  IconButton,
+} from "@grupo10-pos-fiap/design-system";
 import { WidgetType, WidgetConfig } from "@/types/dashboard";
-import { getDashboardConfig, toggleWidgetVisibility, updateWidgetOrder } from "@/utils/dashboardStorage";
+import {
+  getDashboardConfig,
+  toggleWidgetVisibility,
+  updateWidgetOrder,
+} from "@/utils/dashboardStorage";
 import styles from "./WidgetSettings.module.css";
 
 interface WidgetSettingsProps {
@@ -39,8 +48,12 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
       return;
     }
 
-    const draggedIndex = config.widgets.findIndex((w) => w.id === draggedWidget);
-    const targetIndex = config.widgets.findIndex((w) => w.id === targetWidgetId);
+    const draggedIndex = config.widgets.findIndex(
+      (w) => w.id === draggedWidget
+    );
+    const targetIndex = config.widgets.findIndex(
+      (w) => w.id === targetWidgetId
+    );
 
     const newWidgets = [...config.widgets];
     const [removed] = newWidgets.splice(draggedIndex, 1);
@@ -58,7 +71,7 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
   };
 
   return (
-    <Card variant="elevated" color="base" className={styles.card}>
+    <Card variant="elevated" color="white" className={styles.card}>
       <div className={styles.header}>
         <Text variant="subtitle" weight="semibold">
           Personalizar Widgets
@@ -101,7 +114,7 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
           ))}
         </div>
         <div className={styles.actions}>
-          <Button variant="primary" onClick={onClose} width="auto">
+          <Button variant="primary" onClick={onClose} width="90px">
             Concluir
           </Button>
         </div>
