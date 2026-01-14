@@ -8,7 +8,7 @@ import Dashboard from "./Dashboard";
 import "./styles/tokens.css";
 import styles from "./root.component.module.css";
 
-interface RootProps {
+export interface RootProps {
   name?: string;
 }
 
