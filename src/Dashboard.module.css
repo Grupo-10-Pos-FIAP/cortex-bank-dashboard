@@ -2,18 +2,31 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
 }
 
 .header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
+}
+
+.header button {
+  white-space: nowrap;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--spacing-xs);
 }
 
 .widgetsContainer {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
 }

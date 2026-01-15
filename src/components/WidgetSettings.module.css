@@ -1,5 +1,6 @@
 .card {
   margin-bottom: var(--spacing-xl);
+  margin-top: var(--spacing-xs);
   padding: var(--spacing-lg);
   background-color: white !important;
 }
