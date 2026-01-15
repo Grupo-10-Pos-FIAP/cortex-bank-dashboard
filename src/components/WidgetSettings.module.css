@@ -31,11 +31,27 @@
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-md);
   cursor: move;
-  transition: background-color var(--transition-default);
+  transition: background-color var(--transition-default), 
+              opacity var(--transition-default),
+              transform var(--transition-default);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .widgetItem:hover {
   background-color: var(--color-bg-hovered);
+}
+
+.widgetItem.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+.widgetItem.dragOver {
+  border-color: var(--color-primary-default, #0066cc);
+  background-color: var(--color-bg-hovered);
+  transform: translateY(0);
 }
 
 .widgetInfo {
