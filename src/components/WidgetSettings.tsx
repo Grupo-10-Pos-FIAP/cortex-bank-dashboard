@@ -21,7 +21,7 @@ interface WidgetSettingsProps {
 const WIDGET_LABELS: Record<WidgetType, string> = {
   balance: "Saldo",
   evolution: "Evolução",
-  incomeOutcome: "Entrada Vs Saída",
+  incomeOutcome: "Entrada vs Saída",
 };
 
 function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {

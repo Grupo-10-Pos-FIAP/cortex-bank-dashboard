@@ -22,7 +22,7 @@ function IncomeOutcomeWidget({ data, loading = false }: IncomeOutcomeWidgetProps
     <Card variant="elevated" color="white" className={styles.card}>
       <div className={styles.header}>
         <Text variant="subtitle" weight="semibold" className={styles.headerTitle}>
-          Entrada Vs Saída
+          Entrada vs Saída
         </Text>
       </div>
       {loading ? (
