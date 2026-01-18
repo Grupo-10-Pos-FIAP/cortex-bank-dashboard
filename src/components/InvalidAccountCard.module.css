@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
   box-sizing: border-box;
   min-height: 100vh;
   overflow-y: auto;
