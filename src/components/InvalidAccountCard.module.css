@@ -1,11 +1,12 @@
 .container {
   width: 100%;
-  max-width: var(--dimension-container-max-width);
-  margin: 0 auto;
-  padding: var(--spacing-lg);
+  max-width: 100%;
+  margin: 0;
+  padding: var(--spacing-lg) 0;
   box-sizing: border-box;
   min-height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card {
@@ -14,7 +15,7 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-sm);
     padding-bottom: calc(var(--spacing-2xl) + env(safe-area-inset-bottom, 0px));
     margin-bottom: var(--spacing-xl);
   }
