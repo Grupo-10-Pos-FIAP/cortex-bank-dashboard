@@ -32,7 +32,6 @@ export function getDashboardConfig(): DashboardConfig {
           });
         }
       });
-      // Sort by order
       config.widgets.sort((a, b) => a.order - b.order);
       return cloneConfig(config);
     }

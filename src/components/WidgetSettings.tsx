@@ -89,7 +89,6 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
   };
 
   const handleTouchStart = (e: React.TouchEvent, widgetId: WidgetType) => {
-    // Ignora toques que começam em botões ou elementos interativos
     const target = e.target as HTMLElement;
     if (
       target.closest('button') ||
@@ -112,19 +111,16 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
     const currentY = touch.clientY;
     const deltaY = Math.abs(currentY - touchStartY);
 
-    // Só inicia o arrasto se o movimento for significativo (mais de 10px)
     if (deltaY > 10) {
       setIsDragging(true);
-      e.preventDefault(); // Previne scroll durante o arrasto
+      e.preventDefault(); 
     } else {
-      return; // Ainda não é um arrasto, apenas um toque
+      return;
     }
 
-    // Encontra qual widget está sendo tocado baseado na posição Y
     let targetWidget: WidgetType | null = null;
     let minDistance = Infinity;
 
-    // Itera pelos widgets na ordem atual
     const orderedWidgets = [...config.widgets].sort((a, b) => a.order - b.order);
     
     for (const widget of orderedWidgets) {
@@ -133,13 +129,11 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
 
       const rect = element.getBoundingClientRect();
       
-      // Verifica se o toque está dentro dos limites verticais do elemento
       if (currentY >= rect.top && currentY <= rect.bottom) {
         targetWidget = widget.id;
         break;
       }
 
-      // Calcula a distância do centro do elemento para encontrar o mais próximo
       const centerY = rect.top + rect.height / 2;
       const distance = Math.abs(currentY - centerY);
       
@@ -149,7 +143,6 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
       }
     }
 
-    // Se encontrou um widget alvo diferente do que está sendo arrastado
     if (targetWidget && targetWidget !== touchWidgetId) {
       setDraggedOverWidget(targetWidget);
     } else if (!targetWidget) {
@@ -158,7 +151,6 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
   };
 
   const handleTouchEnd = () => {
-    // Só reordena se realmente houve um arrasto
     if (isDragging && touchWidgetId && draggedOverWidget) {
       reorderWidgets(touchWidgetId, draggedOverWidget);
     } else {
