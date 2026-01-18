@@ -1,12 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import type { EnhancedStore } from "@reduxjs/toolkit";
+import { configureStore, type EnhancedStore } from "@reduxjs/toolkit";
 import dashboardReducer from "./slices/dashboardSlice";
-import accountReducer from "./slices/accountSlice";
 
 const storeConfig = {
   reducer: {
     dashboard: dashboardReducer,
-    account: accountReducer,
   },
 } as const;
 
