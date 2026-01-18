@@ -7,6 +7,7 @@ import { store } from "@/store";
 import Dashboard from "./Dashboard";
 import "./styles/tokens.css";
 import styles from "./root.component.module.css";
+import InvalidAccountCard from "./components/InvalidAccountCard";
 
 export interface RootProps {
   name?: string;
@@ -17,8 +18,15 @@ export default function Root(_props: RootProps) {
   const [loadingAccount, setLoadingAccount] = useState<boolean>(true);
 
   const loadAccountId = useCallback(() => {
+    setLoadingAccount(true);
     const storedAccountId = getAccountId();
-    setAccountId(storedAccountId);
+    setAccountId((prev) =>
+      prev !== storedAccountId
+        ? storedAccountId
+        : storedAccountId === null
+        ? null
+        : `${storedAccountId}`
+    );
     setLoadingAccount(false);
   }, []);
 
@@ -63,12 +71,11 @@ export default function Root(_props: RootProps) {
       window.removeEventListener("accountIdChanged", handleAccountIdChange);
       window.removeEventListener("storage", handleStorageChange);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleRefresh = useCallback(() => {
-    loadAccountId();
-  }, [loadAccountId]);
+  const handleRefreshAccount = useCallback(() => {
+    window.location.reload();
+  }, []);
 
   if (loadingAccount) {
     return (
@@ -86,39 +93,7 @@ export default function Root(_props: RootProps) {
     return (
       <Provider store={store}>
         <QueryProvider>
-          <div className={styles.container}>
-            <Card variant="elevated" color="white">
-              <Card.Section>
-                <div
-                  style={{ textAlign: "center", padding: "var(--spacing-xl)" }}
-                >
-                  <Text
-                    variant="subtitle"
-                    weight="semibold"
-                    color="error"
-                    style={{ marginBottom: "var(--spacing-md)" }}
-                  >
-                    Conta não identificada
-                  </Text>
-                  <Text
-                    variant="body"
-                    color="gray600"
-                    style={{ marginBottom: "var(--spacing-lg)" }}
-                  >
-                    Não foi possível identificar a conta. Por favor, verifique
-                    se o accountId está armazenado no localStorage.
-                  </Text>
-                  <Button
-                    variant="primary"
-                    onClick={handleRefresh}
-                    width="90px"
-                  >
-                    Atualizar Tela
-                  </Button>
-                </div>
-              </Card.Section>
-            </Card>
-          </div>
+          <InvalidAccountCard handleClick={handleRefreshAccount} />
         </QueryProvider>
       </Provider>
     );
@@ -128,7 +103,10 @@ export default function Root(_props: RootProps) {
     <Provider store={store}>
       <QueryProvider>
         <div className={styles.container}>
-          <Dashboard accountId={accountId} />
+          <Dashboard
+            accountId={accountId}
+            onRefreshAccount={handleRefreshAccount}
+          />
         </div>
       </QueryProvider>
     </Provider>

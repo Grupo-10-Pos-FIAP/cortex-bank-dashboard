@@ -13,12 +13,14 @@ import IncomeOutcomeWidget from "@/components/IncomeOutcomeWidget";
 import WidgetSettings from "@/components/WidgetSettings";
 import { WidgetType } from "@/types/dashboard";
 import styles from "./Dashboard.module.css";
+import InvalidAccountCard from "./components/InvalidAccountCard";
 
 interface DashboardProps {
   accountId: string | null;
+  onRefreshAccount?: () => void;
 }
 
-function Dashboard({ accountId }: DashboardProps) {
+function Dashboard({ accountId, onRefreshAccount }: DashboardProps) {
   const dispatch = useAppDispatch();
   const showSettings = useAppSelector((state) => state.dashboard.showSettings);
   const config = useAppSelector((state) => state.dashboard.config);
@@ -67,28 +69,8 @@ function Dashboard({ accountId }: DashboardProps) {
     }
   };
 
-  if (!accountId) {
-    return (
-      <Card variant="elevated" color="white">
-        <Card.Section>
-          <Text variant="body" color="error">
-            Conta não encontrada
-          </Text>
-        </Card.Section>
-      </Card>
-    );
-  }
-
   if (dashboard.error) {
-    return (
-      <Card variant="elevated" color="white">
-        <Card.Section>
-          <Text variant="body" color="error">
-            Erro ao carregar dados: {dashboard.error.message}
-          </Text>
-        </Card.Section>
-      </Card>
-    );
+    return <InvalidAccountCard handleClick={onRefreshAccount} />;
   }
 
   return (
@@ -125,7 +107,7 @@ function Dashboard({ accountId }: DashboardProps) {
       )}
 
       {dashboard.loading && visibleWidgets.length === 0 ? (
-        <Card variant="elevated" color="white">
+        <Card variant="elevated" color="white" className={styles.card}>
           <Card.Section>
             <Loading text="Carregando dashboard..." />
           </Card.Section>
@@ -133,7 +115,7 @@ function Dashboard({ accountId }: DashboardProps) {
       ) : (
         <div className={styles.widgetsContainer}>
           {visibleWidgets.length === 0 ? (
-            <Card variant="elevated" color="white">
+            <Card variant="elevated" color="white" className={styles.card}>
               <Card.Section>
                 <Text variant="body" color="content-secondary">
                   Nenhum widget visível. Configure os widgets para exibir
