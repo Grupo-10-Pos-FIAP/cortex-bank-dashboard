@@ -1,9 +1,24 @@
-import { Transaction, MonthlyData, MonthlyIncomeOutcome } from "@/types/dashboard";
+import {
+  Transaction,
+  MonthlyData,
+  MonthlyIncomeOutcome,
+} from "@/types/dashboard";
 import { formatMonth } from "./formatters";
 
-export function processEvolutionData(transactions: Transaction[]): MonthlyData[] {
+const MONTHS_TO_SHOW = 6;
+const NORMALIZATION_OFFSET = 10000;
+const NORMALIZATION_DIVISOR = 20000;
+const MAX_PERCENTAGE = 100;
+
+export function processEvolutionData(
+  transactions: Transaction[]
+): MonthlyData[] {
   const now = new Date();
-  const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+  const sixMonthsAgo = new Date(
+    now.getFullYear(),
+    now.getMonth() - (MONTHS_TO_SHOW - 1),
+    1
+  );
 
   const monthlyBalances = new Map<string, number>();
   let runningBalance = 0;
@@ -23,18 +38,25 @@ export function processEvolutionData(transactions: Transaction[]): MonthlyData[]
 
   const result: MonthlyData[] = [];
   let lastBalance = 0;
-  
-  for (let i = 5; i >= 0; i--) {
+
+  for (let i = MONTHS_TO_SHOW - 1; i >= 0; i--) {
     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
     const balance = monthlyBalances.get(monthKey);
-    
+
     if (balance !== undefined) {
       lastBalance = balance;
     }
-    
-    const normalizedValue = Math.max(0, Math.min(100, ((lastBalance + 10000) / 20000) * 100));
-    
+
+    const normalizedValue = Math.max(
+      0,
+      Math.min(
+        MAX_PERCENTAGE,
+        ((lastBalance + NORMALIZATION_OFFSET) / NORMALIZATION_DIVISOR) *
+          MAX_PERCENTAGE
+      )
+    );
+
     result.push({
       month: formatMonth(date.toISOString()),
       value: normalizedValue,
@@ -44,14 +66,17 @@ export function processEvolutionData(transactions: Transaction[]): MonthlyData[]
   return result;
 }
 
-export function processIncomeOutcomeData(transactions: Transaction[]): MonthlyIncomeOutcome[] {
+export function processIncomeOutcomeData(
+  transactions: Transaction[]
+): MonthlyIncomeOutcome[] {
   const now = new Date();
-  const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+  const sixMonthsAgo = new Date(
+    now.getFullYear(),
+    now.getMonth() - (MONTHS_TO_SHOW - 1),
+    1
+  );
 
-  const monthlyMap = new Map<
-    string,
-    { entrada: number; saida: number }
-  >();
+  const monthlyMap = new Map<string, { entrada: number; saida: number }>();
 
   transactions.forEach((transaction) => {
     const transactionDate = new Date(transaction.date);
@@ -75,18 +100,24 @@ export function processIncomeOutcomeData(transactions: Transaction[]): MonthlyIn
     maxEntrada = Math.max(maxEntrada, data.entrada);
     maxSaida = Math.max(maxSaida, data.saida);
   });
-  const maxValue = Math.max(maxEntrada, maxSaida, 1); 
+  const maxValue = Math.max(maxEntrada, maxSaida, 1);
 
   const result: MonthlyIncomeOutcome[] = [];
-  for (let i = 5; i >= 0; i--) {
+  for (let i = MONTHS_TO_SHOW - 1; i >= 0; i--) {
     const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
     const monthKey = `${date.getFullYear()}-${date.getMonth()}`;
     const data = monthlyMap.get(monthKey) || { entrada: 0, saida: 0 };
-    
+
     result.push({
       month: formatMonth(date.toISOString()),
-      entrada: Math.max(0, Math.min(100, (data.entrada / maxValue) * 100)),
-      saida: Math.max(0, Math.min(100, (data.saida / maxValue) * 100)),
+      entrada: Math.max(
+        0,
+        Math.min(MAX_PERCENTAGE, (data.entrada / maxValue) * MAX_PERCENTAGE)
+      ),
+      saida: Math.max(
+        0,
+        Math.min(MAX_PERCENTAGE, (data.saida / maxValue) * MAX_PERCENTAGE)
+      ),
     });
   }
 
