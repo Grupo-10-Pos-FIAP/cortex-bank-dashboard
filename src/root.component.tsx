@@ -17,12 +17,9 @@ export default function Root(_props: RootProps) {
   const [loadingAccount, setLoadingAccount] = useState<boolean>(true);
 
   const loadAccountId = useCallback(() => {
-    setLoadingAccount(true);
-    setTimeout(() => {
-      const storedAccountId = getAccountId();
-      setAccountId(storedAccountId);
-      setLoadingAccount(false);
-    }, 0);
+    const storedAccountId = getAccountId();
+    setAccountId(storedAccountId);
+    setLoadingAccount(false);
   }, []);
 
   useEffect(() => {
@@ -66,6 +63,7 @@ export default function Root(_props: RootProps) {
       window.removeEventListener("accountIdChanged", handleAccountIdChange);
       window.removeEventListener("storage", handleStorageChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleRefresh = useCallback(() => {

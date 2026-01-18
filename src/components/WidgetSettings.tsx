@@ -29,7 +29,9 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
   const [draggedWidget, setDraggedWidget] = useState<WidgetType | null>(null);
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
   const [touchWidgetId, setTouchWidgetId] = useState<WidgetType | null>(null);
-  const [draggedOverWidget, setDraggedOverWidget] = useState<WidgetType | null>(null);
+  const [draggedOverWidget, setDraggedOverWidget] = useState<WidgetType | null>(
+    null
+  );
   const [isDragging, setIsDragging] = useState(false);
   const widgetRefs = useRef<Map<WidgetType, HTMLDivElement>>(new Map());
 
@@ -56,7 +58,10 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
     reorderWidgets(draggedWidget, targetWidgetId);
   };
 
-  const reorderWidgets = (sourceWidgetId: WidgetType, targetWidgetId: WidgetType) => {
+  const reorderWidgets = (
+    sourceWidgetId: WidgetType,
+    targetWidgetId: WidgetType
+  ) => {
     if (sourceWidgetId === targetWidgetId) {
       setDraggedWidget(null);
       setTouchWidgetId(null);
@@ -91,9 +96,9 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
   const handleTouchStart = (e: React.TouchEvent, widgetId: WidgetType) => {
     const target = e.target as HTMLElement;
     if (
-      target.closest('button') ||
+      target.closest("button") ||
       target.closest('[role="button"]') ||
-      target.tagName === 'BUTTON'
+      target.tagName === "BUTTON"
     ) {
       return;
     }
@@ -113,7 +118,7 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
 
     if (deltaY > 10) {
       setIsDragging(true);
-      e.preventDefault(); 
+      e.preventDefault();
     } else {
       return;
     }
@@ -121,14 +126,16 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
     let targetWidget: WidgetType | null = null;
     let minDistance = Infinity;
 
-    const orderedWidgets = [...config.widgets].sort((a, b) => a.order - b.order);
-    
+    const orderedWidgets = [...config.widgets].sort(
+      (a, b) => a.order - b.order
+    );
+
     for (const widget of orderedWidgets) {
       const element = widgetRefs.current.get(widget.id);
       if (!element) continue;
 
       const rect = element.getBoundingClientRect();
-      
+
       if (currentY >= rect.top && currentY <= rect.bottom) {
         targetWidget = widget.id;
         break;
@@ -136,7 +143,7 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
 
       const centerY = rect.top + rect.height / 2;
       const distance = Math.abs(currentY - centerY);
-      
+
       if (distance < minDistance) {
         minDistance = distance;
         targetWidget = widget.id;
@@ -183,9 +190,10 @@ function WidgetSettings({ onClose, onConfigChange }: WidgetSettingsProps) {
         <div className={styles.widgetList}>
           {config.widgets.map((widget) => {
             const isWidgetDragging = draggedWidget === widget.id;
-            const isDragOver = draggedOverWidget === widget.id || 
+            const isDragOver =
+              draggedOverWidget === widget.id ||
               (draggedWidget && draggedWidget !== widget.id && !touchWidgetId);
-            
+
             return (
               <div
                 key={widget.id}

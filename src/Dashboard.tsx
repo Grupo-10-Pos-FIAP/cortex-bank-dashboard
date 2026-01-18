@@ -1,10 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import {
-  Card,
-  Button,
-  Loading,
-  Text,
-} from "@grupo10-pos-fiap/design-system";
+import { Card, Button, Loading, Text } from "@grupo10-pos-fiap/design-system";
 import { useDashboard } from "@/hooks/useDashboard";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {

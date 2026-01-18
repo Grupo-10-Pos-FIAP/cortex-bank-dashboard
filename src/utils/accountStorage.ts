@@ -21,7 +21,9 @@ export function setAccountId(accountId: string): void {
 
   try {
     localStorage.setItem(ACCOUNT_ID_KEY, accountId);
-    window.dispatchEvent(new CustomEvent("accountIdChanged", { detail: { accountId } }));
+    window.dispatchEvent(
+      new CustomEvent("accountIdChanged", { detail: { accountId } })
+    );
   } catch (error) {
     console.error("Erro ao salvar accountId no localStorage:", error);
   }

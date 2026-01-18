@@ -17,11 +17,18 @@ interface IncomeOutcomeWidgetProps {
   loading?: boolean;
 }
 
-function IncomeOutcomeWidget({ data, loading = false }: IncomeOutcomeWidgetProps) {
+function IncomeOutcomeWidget({
+  data,
+  loading = false,
+}: IncomeOutcomeWidgetProps) {
   return (
     <Card variant="elevated" color="white" className={styles.card}>
       <div className={styles.header}>
-        <Text variant="subtitle" weight="semibold" className={styles.headerTitle}>
+        <Text
+          variant="subtitle"
+          weight="semibold"
+          className={styles.headerTitle}
+        >
           Entrada vs Saída
         </Text>
       </div>
@@ -30,8 +37,14 @@ function IncomeOutcomeWidget({ data, loading = false }: IncomeOutcomeWidgetProps
       ) : (
         <Card.Section className={styles.chartSection}>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-default)" />
+            <BarChart
+              data={data}
+              margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="var(--color-border-default)"
+              />
               <XAxis
                 dataKey="month"
                 stroke="var(--color-content-secondary)"

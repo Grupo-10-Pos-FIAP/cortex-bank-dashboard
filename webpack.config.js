@@ -27,7 +27,7 @@ module.exports = (webpackConfigEnv, argv) => {
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),
-        "redux": path.resolve(__dirname, "node_modules/redux/dist/cjs/redux.cjs"),
+        redux: path.resolve(__dirname, "node_modules/redux/dist/cjs/redux.cjs"),
       },
     },
     devServer: {

@@ -1,6 +1,10 @@
 export function shouldUseMock(): boolean {
   const useMock = process.env.USE_MOCK;
-  return useMock === "true" || useMock === "1" || (useMock !== undefined && useMock !== "");
+  return (
+    useMock === "true" ||
+    useMock === "1" ||
+    (useMock !== undefined && useMock !== "")
+  );
 }
 
 export function getApiBaseUrl(): string {

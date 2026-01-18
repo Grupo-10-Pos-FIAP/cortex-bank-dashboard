@@ -9,17 +9,6 @@ export function formatCurrency(value: number): string {
   }).format(value);
 }
 
-export function formatValue(value: number): string {
-  if (typeof value !== "number" || isNaN(value)) {
-    return "0,00";
-  }
-
-  return new Intl.NumberFormat("pt-BR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value);
-}
-
 export function formatMonth(date: string): string {
   const d = new Date(date);
   const monthNames = [
