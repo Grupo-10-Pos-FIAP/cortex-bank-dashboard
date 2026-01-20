@@ -2,7 +2,7 @@
 
 Microserviço front-end de dashboard bancário desenvolvido como microfrontend utilizando Single-SPA. Este projeto faz parte da arquitetura de microserviços do Cortex Bank e fornece uma interface para visualização de informações financeiras, incluindo saldo, evolução de transações e análise de receitas e despesas.
 
-## 📋 Índice
+## Índice
 
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Tecnologias](#tecnologias)
@@ -16,7 +16,7 @@ Microserviço front-end de dashboard bancário desenvolvido como microfrontend u
 - [Segurança](#segurança)
 - [Desenvolvimento](#desenvolvimento)
 
-## 🎯 Sobre o Projeto
+## Sobre o Projeto
 
 O Cortex Bank Dashboard é um microfrontend que permite aos usuários visualizar e gerenciar informações financeiras de suas contas. O dashboard oferece widgets customizáveis que exibem:
 
@@ -26,7 +26,7 @@ O Cortex Bank Dashboard é um microfrontend que permite aos usuários visualizar
 
 O projeto utiliza a arquitetura de microfrontends com Single-SPA, permitindo integração com outros microserviços da aplicação principal.
 
-## 🛠 Tecnologias
+## Tecnologias
 
 ### Core
 
@@ -52,7 +52,6 @@ O projeto utiliza a arquitetura de microfrontends com Single-SPA, permitindo int
 - **ESLint** - Linter
 - **Prettier** - Formatador de código
 
-
 ## 🏗 Arquitetura
 
 ### Microfrontend com Single-SPA
@@ -69,12 +68,11 @@ O projeto é configurado como um microfrontend que pode ser carregado dinamicame
 - **React Query**: Gerencia cache e sincronização de dados da API
 - **Local Storage**: Persiste configurações de widgets do usuário
 
-## 📦 Pré-requisitos
+## Pré-requisitos
 
-- **Node.js** >= 16.x
-- **npm** >= 8.x
+- Node.js (versão 20 ou superior)
 
-## 🚀 Instalação
+## Instalação
 
 1. Clone o repositório:
 
@@ -89,7 +87,7 @@ cd dashboard
 npm install
 ```
 
-## ⚙️ Configuração
+## Configuração
 
 ### Variáveis de Ambiente
 
@@ -121,7 +119,7 @@ USE_MOCK=false
 | `MOCK_API_BASE_URL` | URL base da API mock                | Não         | `http://localhost:8080` |
 | `USE_MOCK`          | Habilita modo mock (`true`/`false`) | Não         | `false`                 |
 
-## 📜 Scripts Disponíveis
+## Scripts Disponíveis
 
 ### Desenvolvimento
 
@@ -159,7 +157,7 @@ npm run format
 npm run check-format
 ```
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 dashboard/
@@ -181,11 +179,14 @@ dashboard/
 │   │   ├── hooks.ts
 │   │   ├── index.ts
 │   │   └── slices/
-│   │       ├── accountSlice.ts
 │   │       └── dashboardSlice.ts
+│   ├── styles/     
+│   │   └── tokens.css          # Tokens Globais
 │   ├── types/                  # Definições TypeScript
 │   │   └── dashboard.ts
 │   ├── utils/                  # Utilitários
+│   │   ├── accountIdListener.ts
+│   │   ├── accountStorage.ts
 │   │   ├── apiClient.ts
 │   │   ├── balanceCalculator.ts
 │   │   ├── dashboardStorage.ts
@@ -201,7 +202,7 @@ dashboard/
 └── package.json
 ```
 
-## 🚢 Deploy
+## Deploy
 
 ### Vercel
 
@@ -233,7 +234,7 @@ npm run build
 
 2. O diretório `dist` contém os arquivos prontos para deploy.
 
-## 🔒 Segurança
+## Segurança
 
 ### Variáveis de Ambiente
 
@@ -252,7 +253,7 @@ O arquivo `.env` deve ser usado **apenas para desenvolvimento local** e está in
 - Sanitização de dados de entrada
 - CORS configurado adequadamente
 
-## 💻 Desenvolvimento
+## Desenvolvimento
 
 ### Modo Standalone
 
@@ -279,6 +280,11 @@ O projeto exporta os lifecycles do Single-SPA:
 3. Implemente a renderização em `Dashboard.tsx` no método `renderWidget`
 4. Adicione configuração padrão em `dashboardStorage.ts`
 
-## 📝 Licença
+## Licença
 
-## Este projeto é parte do Cortex Bank e é propriedade do Grupo 10 - Pós FIAP.
+Este projeto foi desenvolvido como parte do trabalho de pós-graduação em Engenharia de Software Frontend.
+
+## Autores
+
+- [Gabrielle Martins](https://github.com/Gabrielle-96)
+- [Helen Cris](https://github.com/HelenCrisM)
